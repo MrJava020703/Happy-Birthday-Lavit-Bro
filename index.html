@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Happy Birthday  Lavit Bro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+ <!-- <h2>Click this card</h2> -->
+ <canvas id="fireworksCanvas"></canvas>
+<div class="body">
+ <div class="birthdayCard">
+<div class="cardFront"><h3 class="happy">HAPPY BIRTHDAY </h3>
+  <h3 class="happy" style="margin-top: -30px;">Lavit Bro  🎉💝🥳🥳💝💝🎈</h3>
+<div class="balloons">
+  <div class="balloonOne"></div>
+  <div class="balloonTwo"></div>
+  <div class="balloonThree"></div>
+  <div class="balloonFour"></div>
+</div>
+</div>
+<div class="cardInside">
+    <h2 class="back">HAPPY BIRTHDAY Lavit bro  🎉💝🥳🥳💝💝🎈</h2>
+    <p contenteditable="true">Dear best friend,</p> 
+    <p contenteditable="true">Wishing u a very very Happy birthday Lavit bro 🎉💝🥳🥳💝💝🎈.May God Bless U forever ♾️♾️😇😇 I hope your day is filled with lots of love and laughter.May all of your birthday wishes come true.</p>
+    <p contenteditable="true" class="name" style="margin-left:-32px;">@developer_mr.java</p>
+  </div>
+</div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  function createFireworks() {
+    const canvas = document.getElementById("fireworksCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function Firework() {
+      this.x = random(0, canvas.width);
+      this.y = canvas.height;
+      this.sx = random(-2, 2);
+      this.sy = random(-12, -8);
+      this.color = `rgba(${random(100, 255)}, ${random(100, 255)}, ${random(100, 255)}, 0.7)`;
+      this.radius = random(2, 4);
+    }
+
+    Firework.prototype.draw = function () {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = this.color;
+      ctx.fill();
+      ctx.closePath();
+    };
+
+    Firework.prototype.update = function () {
+      this.x += this.sx;
+      this.y += this.sy;
+      this.sy += 0.1;
+      this.radius -= 0.02;
+
+      this.draw();
+    };
+
+    const fireworks = [];
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      fireworks.forEach((firework, index) => {
+        firework.update();
+
+        if (firework.radius <= 0) {
+          fireworks.splice(index, 1);
+          createFirework(); // Create a new firework to keep it continuous
+        }
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    function createFirework() {
+      const firework = new Firework();
+      fireworks.push(firework);
+    }
+
+    // Start the animation
+    animate();
+    setInterval(createFirework, 300); // Adjust the interval as needed
+  }
+
+  createFireworks();
+});
+
+
+</script>
+  <script src="main.js"></script>
+</body>
+</html>
